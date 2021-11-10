@@ -217,6 +217,95 @@ LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/src/libsodium/sodium/utils.c
 LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/src/libsodium/sodium/version.c
 
 ################################################################################
+# sodium tests
+################################################################################
+ifeq ($(CONFIG_LIBSODIUM_TESTS),y)
+
+CINCLUDES-y += -I$(LIBSODIUM_BASE)/include
+LIBSODIUM_SRCS-y += $(LIBSODIUM_BASE)/src/uk_sodium_test.c
+
+# libsodium tests for minimal configuration (configure --enable-minimal)
+# These have been derived from libodium/test/ with small adaptations for
+# Unikraft. Test vectors have not been modified. Excluded cases:
+# * sodium_core
+# * sodium_utils2
+# * sodium_utils3
+# All of the above call exit(), which terminates the application in Unikraft.
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/aead_aes256gcm_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/aead_aes256gcm2_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/aead_chacha20poly1305_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/aead_chacha20poly13052_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/aead_xchacha20poly1305_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/auth_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/auth2_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/auth3_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/auth5_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/auth6_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/auth7_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/box_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/box2_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/box7_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/box8_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/box_easy_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/box_easy2_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/box_seal_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/box_seed_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/chacha20_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/codecs_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/core1_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/core2_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/core3_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/core4_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/core5_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/core6_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/ed25519_convert_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/generichash_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/generichash2_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/generichash3_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/hash_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/hash3_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/kdf_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/keygen_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/kx_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/metamorphic_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/misuse_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/onetimeauth_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/onetimeauth2_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/onetimeauth7_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/pwhash_argon2i_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/pwhash_argon2id_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/randombytes_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/scalarmult_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/scalarmult2_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/scalarmult5_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/scalarmult6_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/scalarmult7_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/scalarmult8_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/secretbox_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/secretbox2_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/secretbox7_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/secretbox8_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/secretbox_easy_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/secretbox_easy2_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/secretstream_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/shorthash_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/sign_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/sodium_core_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/sodium_utils_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/sodium_utils2_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/sodium_utils3_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/sodium_version_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/stream_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/stream2_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/stream3_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/stream4_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/test/default/verify1_test.c
+
+LIBSODIUM_CINCLUDES += -I$(LIBSODIUM_EXTRACTED)/test/default
+LIBSODIUM_CINCLUDES += -I$(LIBSODIUM_EXTRACTED)/test/quirks
+endif
+
+################################################################################
 # sodium prepare
 ################################################################################
 
