@@ -3,3 +3,9 @@ menuconfig LIBSODIUM
 	default n
 	select LIBNEWLIBC
 	select LIBUKSWRAND
+
+if LIBSODIUM
+	config LIBSODIUM_TESTS
+		bool "Enable libsodium tests"
+		default n
+endif
