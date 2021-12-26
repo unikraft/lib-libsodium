@@ -5,7 +5,15 @@ menuconfig LIBSODIUM
 	select LIBUKSWRAND
 
 if LIBSODIUM
-	config LIBSODIUM_TESTS
+	config LIBSODIUM_TEST
 		bool "Enable libsodium tests"
+		select LIBUKTEST
+		default n
+		select LIBSODIUM_TEST_MINIMAL
+		help
+			Enables all libsodium tests.
+
+	config LIBSODIUM_TEST_MINIMAL
+		bool
 		default n
 endif

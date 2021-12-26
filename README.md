@@ -22,21 +22,10 @@ LIBS := $(UK_LIBS)/lib-newlib:$(UK_LIBS)/lib-libsodium
 
 ## Testing:
 
-To run the tests, select the `Enable libsodium tests` option in menuconfig.
-This will allow you to include `sodium/uk_sodium_test.h` and call
-`uk_sodium_run_tests()`. A testing application can be as simple as:
-```
-#include <stdio.h>
-#include <sodium/uk_sodium_test.h>
+To run the tests, select the `Enable libsodium tests` option in menuconfig. Alternatively you can
+select the `Enable all tests across all libraries` option under the configuration of the `uktest`
+library.
 
-int main(int argc, char *argv[])
-{
-	(void)argc;
-	(void)argv;
-
-	uk_sodium_run_tests();
-}
-```
 **Notice:** Running the tests on the linuxu platform requires increasing the heap size to 16MiB.
 
 ## More info
