@@ -219,10 +219,10 @@ LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/src/libsodium/sodium/version.c
 ################################################################################
 # sodium tests
 ################################################################################
-ifeq ($(CONFIG_LIBSODIUM_TESTS),y)
+ifneq ($(filter y, $(CONFIG_LIBSODIUM_TEST) $(CONFIG_LIBUKTEST_ALL)),)
 
 CINCLUDES-y += -I$(LIBSODIUM_BASE)/include
-LIBSODIUM_SRCS-y += $(LIBSODIUM_BASE)/src/uk_sodium_test.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_BASE)/tests/test_minimal.c
 
 # libsodium tests for minimal configuration (configure --enable-minimal)
 # These have been derived from libodium/test/ with small adaptations for
