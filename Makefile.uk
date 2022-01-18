@@ -215,6 +215,7 @@ LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/src/libsodium/sodium/core.c
 LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/src/libsodium/sodium/runtime.c
 LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/src/libsodium/sodium/utils.c
 LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/src/libsodium/sodium/version.c
+LIBSODIUM_SRCS-y += $(LIBSODIUM_EXTRACTED)/src/libsodium/crypto_scalarmult/ed25519/ref10/scalarmult_ed25519_ref10.c
 
 ################################################################################
 # sodium tests
