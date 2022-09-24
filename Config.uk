@@ -3,6 +3,7 @@ menuconfig LIBSODIUM
 	default n
 	select LIBNEWLIBC
 	select LIBUKSWRAND
+	select LIBPOSIX_EVENT
 
 if LIBSODIUM
 	config LIBSODIUM_TEST
