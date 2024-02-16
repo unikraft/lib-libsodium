@@ -17,4 +17,8 @@ if LIBSODIUM
 	config LIBSODIUM_TEST_MINIMAL
 		bool
 		default n
+
+	config LIBSODIUM_USE_RDRAND
+		bool "Use RDRAND instruction"
+		default n
 endif

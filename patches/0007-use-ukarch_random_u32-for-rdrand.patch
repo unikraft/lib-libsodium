@@ -1,0 +1,46 @@
+From 658d729997c1363b7cbd56b2a54664192d37a648 Mon Sep 17 00:00:00 2001
+From: Alex Apostolescu <alexx.apostolescu@gmail.com>
+Date: Wed, 12 Apr 2023 01:13:27 +0300
+Subject: [PATCH] Use ukarch_random_u32 in randombytes_internal_random.c
+
+---
+ .../randombytes/internal/randombytes_internal_random.c   | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/src/libsodium/randombytes/internal/randombytes_internal_random.c b/src/libsodium/randombytes/internal/randombytes_internal_random.c
+index f0794f8..09f6c39 100644
+--- a/src/libsodium/randombytes/internal/randombytes_internal_random.c
++++ b/src/libsodium/randombytes/internal/randombytes_internal_random.c
+@@ -46,7 +46,8 @@
+ #endif
+ #ifdef HAVE_RDRAND
+ # pragma GCC target("rdrnd")
+-# include <immintrin.h>
++// # include <immintrin.h>
++# include <uk/arch/random.h>
+ #endif
+ 
+ #include "core.h"
+@@ -348,6 +349,10 @@ randombytes_internal_random_init(void)
+     global.getentropy_available = 0;
+     global.getrandom_available = 0;
+ 
++# ifdef HAVE_RDRAND
++    ukarch_random_init();
++# endif
++
+ # ifdef HAVE_GETENTROPY
+     {
+         unsigned char fodder[16];
+@@ -527,7 +532,7 @@ randombytes_internal_random_xorhwrand(void)
+     if (global.rdrand_available == 0) {
+         return;
+     }
+-    (void) _rdrand32_step(&r);
++    (void) ukarch_random_u32(&r);
+     * (uint32_t *) (void *)
+         &stream.key[crypto_stream_chacha20_KEYBYTES - 4] ^= (uint32_t) r;
+ #endif
+-- 
+2.34.1
+
