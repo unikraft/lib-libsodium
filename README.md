@@ -11,7 +11,7 @@ equivalent state of configuring libsodium using `configure --enable-minimal`.
 
 libsodium on Unikraft depends on the following Unikraft libraries:
 * lib-newlib (external)
-* ukswrand (internal)
+* ukrandom (internal)
 * posix-event (internal)
 
 All dependencies are automatically enabled via KConfig.
